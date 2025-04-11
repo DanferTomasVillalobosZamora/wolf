@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Danfer Dev | Desarrollo Web Profesional</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <link rel="icon" href="lobo.png" type="image/x-icon">
+  <style>
+    :root {
+      --primary: #00ffe1;
+      --bg: #0f0f10;
+      --bg-alt: #161619;
+      --text: #f0f0f0;
+      --text-muted: #b0b0b0;
+      --card: #1f1f22;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      scroll-behavior: smooth;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 3rem;
+      background: rgba(15, 15, 16, 0.9);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    header h1 {
+      font-size: 2rem;
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    nav a {
+      margin-left: 2rem;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 500;
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0%;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: radial-gradient(circle at top, #1e1e20 0%, var(--bg) 100%);
+      padding: 2rem;
+    }
+
+    .hero h2 {
+      font-size: 3.5rem;
+      max-width: 800px;
+      line-height: 1.2;
+    }
+
+    .hero p {
+      font-size: 1.4rem;
+      margin-top: 1rem;
+      max-width: 700px;
+      color: var(--text-muted);
+    }
+
+    .hero button {
+      margin-top: 2.5rem;
+      padding: 1rem 2.5rem;
+      font-size: 1.1rem;
+      background: var(--primary);
+      border: none;
+      border-radius: 30px;
+      color: #0f0f10;
+      cursor: pointer;
+      font-weight: bold;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .hero button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 25px rgba(0, 255, 225, 0.2);
+    }
+
+    section {
+      padding: 6rem 3rem;
+      background: var(--bg-alt);
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.8rem;
+      margin-bottom: 3rem;
+      color: var(--primary);
+    }
+
+    .services, .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .service-card, .portfolio-card {
+      background: var(--card);
+      border-radius: 20px;
+      padding: 2rem;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before, .portfolio-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(0,255,225,0.1) 0%, transparent 70%);
+      animation: rotate 8s linear infinite;
+    }
+
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .service-card i {
+      font-size: 2.8rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .service-card h3, .portfolio-card h3 {
+      font-size: 1.6rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .service-card p, .portfolio-card p {
+      color: var(--text-muted);
+    }
+
+    .testimonial-carousel {
+      position: relative;
+      max-width: 700px;
+      margin: 0 auto;
+      overflow: hidden;
+      height: 180px;
+    }
+
+    .testimonial {
+      position: absolute;
+      opacity: 0;
+      transition: opacity 0.8s ease-in-out;
+      width: 100%;
+      padding: 1rem 2rem;
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      text-align: center;
+    }
+
+    .testimonial.active {
+      opacity: 1;
+    }
+
+    .testimonial span {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+      color: var(--primary);
+    }
+
+    .contacto {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .contacto p {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .contacto .info {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: var(--bg);
+      color: #888;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Danfer Dev</h1>
+    <nav>
+      <a href="#inicio">Inicio</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#portafolio">Portafolio</a>
+      <a href="#testimonios">Testimonios</a>
+      <a href="#contacto">Contacto</a>
+      <a href="index_portafolio.html">Conóceme</a>
+    </nav>
+  </header>
+
+  <section class="hero" id="inicio">
+    <h2>Diseño Web de Última Generación & Publicidad Visual Impactante</h2>
+    <p>Desarrollo soluciones digitales que impresionan. Desde páginas web de alto nivel hasta banners publicitarios memorables.</p>
+    <button onclick="window.location.href='#contacto'">Hablemos</button>
+  </section>
+
+  <section id="servicios">
+    <h2 class="section-title">Servicios</h2>
+    <div class="services">
+      <div class="service-card">
+        <i class="fas fa-laptop-code"></i>
+        <h3>Web Modernas</h3>
+        <p>Landing pages, tiendas online y páginas corporativas con diseño responsive y velocidad optimizada.</p>
+      </div>
+      <div class="service-card">
+        <i class="fas fa-database"></i>
+        <h3>Sistemas Web</h3>
+        <p>Automatización de procesos, paneles de administración y soluciones personalizadas para tu negocio.</p>
+      </div>
+      <div class="service-card">
+        <i class="fas fa-image"></i>
+        <h3>Banners Creativos</h3>
+        <p>Diseño de banners publicitarios para campañas, redes sociales y sitios web que capturan la atención.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="portafolio">
+    <h2 class="section-title">Portafolio</h2>
+    <div class="portfolio-grid">
+      <div class="portfolio-card">
+        <h3>Sitio Corporativo</h3>
+        <p>Diseño moderno para empresa tecnológica con secciones interactivas y navegación fluida.</p>
+      </div>
+      <div class="portfolio-card">
+        <h3>Tienda Online</h3>
+        <p>Desarrollo de eCommerce completo con pasarela de pagos y catálogo dinámico.</p>
+      </div>
+      <div class="portfolio-card">
+        <h3>Sistema de Gestión</h3>
+        <p>Panel administrativo para controlar usuarios, inventarios y reportes en tiempo real.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="testimonios">
+    <h2 class="section-title">Testimonios</h2>
+    <div class="testimonial-carousel">
+      <div class="testimonial active">
+        <p>"Danfer superó mis expectativas. Mi página web luce profesional y moderna."</p>
+        <span>- Carla R., Emprendedora</span>
+      </div>
+      <div class="testimonial">
+        <p>"Gracias a Danfer, mi sistema web automatizó gran parte de mi negocio. ¡Recomendado!"</p>
+        <span>- Luis M., Dueño de negocio</span>
+      </div>
+      <div class="testimonial">
+        <p>"Los banners que diseñó hicieron que mis campañas resalten frente a la competencia."</p>
+        <span>- Andrea G., Community Manager</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacto">
+    <h2 class="section-title">Contacto</h2>
+    <div class="contacto">
+      <p>¿Tienes un proyecto en mente? Conversemos y llevémoslo al siguiente nivel.</p>
+      <p class="info">📧 zamoracastror@gmail.com</p>
+      <p class="info">📱 +51 901 250 023</p>
+      <p class="info">📍 Lima, Perú</p>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 Danfer Dev. Todos los derechos reservados.
+  </footer>
+
+  <script>
+    window.addEventListener('load', () => {
+      document.body.style.opacity = '1';
+    });
+
+    const testimonios = document.querySelectorAll('.testimonial');
+    let idx = 0;
+    setInterval(() => {
+      testimonios[idx].classList.remove('active');
+      idx = (idx + 1) % testimonios.length;
+      testimonios[idx].classList.add('active');
+    }, 6000);
+  </script>
+</body>
+</html>
