@@ -1,339 +1,615 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Danfer Dev | Desarrollo Web Profesional</title>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-  <link rel="icon" href="lobo.png" type="image/x-icon">
-  <style>
-    :root {
-      --primary: #00ffe1;
-      --bg: #0f0f10;
-      --bg-alt: #161619;
-      --text: #f0f0f0;
-      --text-muted: #b0b0b0;
-      --card: #1f1f22;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Kzador | Figuras de Acción - Colección Épica</title>
+    <!-- Google Fonts + Font Awesome + Swiper CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800;900&family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <!-- AOS Animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Outfit', sans-serif;
-    }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #050508;
+            color: #f0f0f5;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      scroll-behavior: smooth;
-      opacity: 0;
-      transition: opacity 0.6s ease;
-    }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #12121c;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ff3b5c;
+            border-radius: 10px;
+        }
 
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.5rem 3rem;
-      background: rgba(15, 15, 16, 0.9);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
 
-    header h1 {
-      font-size: 2rem;
-      color: var(--primary);
-      font-weight: 700;
-    }
+        /* ===== NAVBAR MODERNA ===== */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.4rem 0;
+            flex-wrap: wrap;
+            gap: 20px;
+            border-bottom: 1px solid rgba(255, 59, 92, 0.25);
+        }
+        .logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ff3b5c, #ff9f4a);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -1px;
+        }
+        .logo span {
+            font-size: 0.8rem;
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            background: none;
+            color: #9ca3af;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #e5e7eb;
+            font-weight: 600;
+            transition: 0.2s;
+            font-size: 1rem;
+        }
+        .nav-links a:hover {
+            color: #ff3b5c;
+        }
+        .btn-wa-nav {
+            background: rgba(37, 211, 102, 0.12);
+            padding: 0.6rem 1.4rem;
+            border-radius: 40px;
+            border: 1px solid #25D36680;
+            font-weight: 700;
+        }
+        .btn-wa-nav:hover {
+            background: #25D366;
+            color: white !important;
+            border-color: #25D366;
+        }
 
-    nav a {
-      margin-left: 2rem;
-      text-decoration: none;
-      color: var(--text);
-      font-weight: 500;
-      position: relative;
-      transition: color 0.3s;
-    }
+        /* HERO CARRUSEL con imágenes de juguetes reales (unsplash placeholder pero con estilo juguete) */
+        .hero-slider {
+            margin: 2rem 0 1rem;
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 25px 40px -15px rgba(0,0,0,0.6);
+        }
+        .swiper-hero {
+            width: 100%;
+            height: 560px;
+        }
+        .swiper-hero .swiper-slide {
+            position: relative;
+            background-size: cover;
+            background-position: center;
+        }
+        .hero-slide-content {
+            position: absolute;
+            bottom: 15%;
+            left: 8%;
+            right: auto;
+            background: rgba(0,0,0,0.65);
+            backdrop-filter: blur(10px);
+            padding: 1.8rem 2.5rem;
+            border-radius: 40px;
+            max-width: 550px;
+            border-left: 5px solid #ff3b5c;
+            z-index: 2;
+        }
+        .hero-slide-content h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            font-family: 'Orbitron', monospace;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+        .hero-slide-content p {
+            font-size: 1rem;
+            color: #e0e0f0;
+            margin-bottom: 1.2rem;
+        }
+        .btn-wa-hero {
+            background: #25D366;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-wa-hero:hover {
+            transform: scale(1.02);
+            background: #1da15a;
+        }
 
-    nav a::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: -4px;
-      width: 0%;
-      height: 2px;
-      background: var(--primary);
-      transition: width 0.3s;
-    }
+        /* Sección de figuras (con imágenes reales) */
+        .section-title {
+            text-align: center;
+            font-size: 2.4rem;
+            font-weight: 800;
+            margin: 3rem 0 1.5rem;
+            font-family: 'Orbitron', monospace;
+        }
+        .section-title span {
+            background: linear-gradient(135deg, #ff3b5c, #ffb347);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
 
-    nav a:hover::after {
-      width: 100%;
-    }
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0 3rem;
+        }
+        .figure-card {
+            background: #0f0f18;
+            border-radius: 32px;
+            overflow: hidden;
+            transition: all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            border: 1px solid rgba(255, 59, 92, 0.25);
+        }
+        .figure-card:hover {
+            transform: translateY(-10px);
+            border-color: #ff3b5c;
+            box-shadow: 0 25px 30px -12px rgba(255, 59, 92, 0.25);
+        }
+        .figure-img {
+            height: 280px;
+            width: 100%;
+            object-fit: cover;
+            display: block;
+            transition: 0.3s;
+        }
+        .figure-card:hover .figure-img {
+            transform: scale(1.02);
+        }
+        .figure-info {
+            padding: 1.5rem;
+        }
+        .figure-info h3 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 0.6rem;
+            font-family: 'Orbitron', monospace;
+        }
+        .figure-info p {
+            color: #a5b1c2;
+            font-size: 0.9rem;
+            margin-bottom: 1.3rem;
+            line-height: 1.4;
+        }
+        .btn-coordinar {
+            background: transparent;
+            border: 1.5px solid #ff3b5c;
+            padding: 12px 0;
+            width: 100%;
+            border-radius: 50px;
+            font-weight: 700;
+            color: #ff3b5c;
+            transition: 0.25s;
+            cursor: pointer;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .btn-coordinar:hover {
+            background: #ff3b5c;
+            color: white;
+            border-color: #ff3b5c;
+        }
 
-    .hero {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      background: radial-gradient(circle at top, #1e1e20 0%, var(--bg) 100%);
-      padding: 2rem;
-    }
+        /* Galería adicional con imágenes */
+        .gallery-thumbs {
+            margin: 2rem 0;
+        }
+        .swiper-gallery {
+            width: 100%;
+            padding-bottom: 40px;
+        }
+        .gallery-item {
+            border-radius: 32px;
+            overflow: hidden;
+            height: 300px;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.3s;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.03);
+        }
 
-    .hero h2 {
-      font-size: 3.5rem;
-      max-width: 800px;
-      line-height: 1.2;
-    }
+        /* Banner WA */
+        .banner-wa {
+            background: linear-gradient(115deg, #ff3b5c20, #ff9f4a20);
+            border-radius: 48px;
+            padding: 2.5rem;
+            margin: 2rem 0;
+            text-align: center;
+            border: 1px solid rgba(255, 100, 100, 0.3);
+        }
+        .banner-wa h3 {
+            font-size: 1.8rem;
+            font-weight: 800;
+        }
+        .btn-wa-banner {
+            background: #25D366;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 28px;
+            border-radius: 40px;
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+            margin-top: 1rem;
+            transition: 0.2s;
+        }
 
-    .hero p {
-      font-size: 1.4rem;
-      margin-top: 1rem;
-      max-width: 700px;
-      color: var(--text-muted);
-    }
+        /* Features */
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            background: #08080f;
+            padding: 3rem 2rem;
+            border-radius: 64px;
+            margin: 2rem 0;
+            border: 1px solid #1e1e2a;
+        }
+        .feature-item {
+            text-align: center;
+            flex: 1;
+            min-width: 170px;
+        }
+        .feature-item i {
+            font-size: 2.8rem;
+            background: linear-gradient(145deg, #ff3b5c, #ffb347);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
 
-    .hero button {
-      margin-top: 2.5rem;
-      padding: 1rem 2.5rem;
-      font-size: 1.1rem;
-      background: var(--primary);
-      border: none;
-      border-radius: 30px;
-      color: #0f0f10;
-      cursor: pointer;
-      font-weight: bold;
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
+        /* Redes y footer */
+        .socials-area {
+            background: #0c0c14;
+            border-radius: 48px;
+            padding: 2.5rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+        .social-icons a {
+            color: #e2e2f0;
+            font-size: 2rem;
+            margin: 0 18px;
+            transition: 0.2s;
+            display: inline-block;
+        }
+        .social-icons a:hover {
+            color: #ff3b5c;
+            transform: translateY(-5px);
+        }
+        footer {
+            background: #020207;
+            border-top: 1px solid #1a1a24;
+            padding: 2rem 0;
+        }
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
 
-    .hero button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 10px 25px rgba(0, 255, 225, 0.2);
-    }
+        /* Botón flotante */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            background: #25D366;
+            color: white;
+            border-radius: 60px;
+            padding: 14px 28px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: bold;
+            font-size: 1rem;
+            box-shadow: 0 10px 28px rgba(0,0,0,0.5);
+            z-index: 1000;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+        .whatsapp-float:hover {
+            background: #1da15a;
+            transform: scale(1.02);
+        }
 
-    section {
-      padding: 6rem 3rem;
-      background: var(--bg-alt);
-    }
-
-    .section-title {
-      text-align: center;
-      font-size: 2.8rem;
-      margin-bottom: 3rem;
-      color: var(--primary);
-    }
-
-    .services, .portfolio-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2.5rem;
-    }
-
-    .service-card, .portfolio-card {
-      background: var(--card);
-      border-radius: 20px;
-      padding: 2rem;
-      text-align: center;
-      transition: transform 0.3s, box-shadow 0.3s;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .service-card::before, .portfolio-card::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(0,255,225,0.1) 0%, transparent 70%);
-      animation: rotate 8s linear infinite;
-    }
-
-    @keyframes rotate {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    .service-card i {
-      font-size: 2.8rem;
-      margin-bottom: 1rem;
-      color: var(--primary);
-    }
-
-    .service-card h3, .portfolio-card h3 {
-      font-size: 1.6rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .service-card p, .portfolio-card p {
-      color: var(--text-muted);
-    }
-
-    .testimonial-carousel {
-      position: relative;
-      max-width: 700px;
-      margin: 0 auto;
-      overflow: hidden;
-      height: 180px;
-    }
-
-    .testimonial {
-      position: absolute;
-      opacity: 0;
-      transition: opacity 0.8s ease-in-out;
-      width: 100%;
-      padding: 1rem 2rem;
-      color: var(--text-muted);
-      font-size: 1.1rem;
-      text-align: center;
-    }
-
-    .testimonial.active {
-      opacity: 1;
-    }
-
-    .testimonial span {
-      display: block;
-      margin-top: 1rem;
-      font-weight: bold;
-      color: var(--primary);
-    }
-
-    .contacto {
-      text-align: center;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    .contacto p {
-      font-size: 1.2rem;
-      color: var(--text-muted);
-      margin-bottom: 1.5rem;
-    }
-
-    .contacto .info {
-      font-size: 1.1rem;
-      margin-bottom: 0.5rem;
-    }
-
-    footer {
-      text-align: center;
-      padding: 2rem 1rem;
-      background: var(--bg);
-      color: #888;
-      font-size: 0.9rem;
-    }
-  </style>
+        @media (max-width: 850px) {
+            .navbar {
+                flex-direction: column;
+                text-align: center;
+            }
+            .swiper-hero {
+                height: 480px;
+            }
+            .hero-slide-content {
+                left: 5%;
+                right: 5%;
+                bottom: 10%;
+                padding: 1rem 1.5rem;
+                max-width: 90%;
+            }
+            .hero-slide-content h2 {
+                font-size: 1.5rem;
+            }
+            .container {
+                padding: 0 20px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>Danfer Dev</h1>
-    <nav>
-      <a href="#inicio">Inicio</a>
-      <a href="#servicios">Servicios</a>
-      <a href="#portafolio">Portafolio</a>
-      <a href="#testimonios">Testimonios</a>
-      <a href="#contacto">Contacto</a>
-      <a href="index_portafolio.html">Conóceme</a>
-    </nav>
-  </header>
 
-  <section class="hero" id="inicio">
-    <h2>Diseño Web de Última Generación & Publicidad Visual Impactante</h2>
-    <p>Desarrollo soluciones digitales que impresionan. Desde páginas web de alto nivel hasta banners publicitarios memorables.</p>
-    <button onclick="window.location.href='#contacto'">Hablemos</button>
-  </section>
+    <!-- Botón flotante WhatsApp -->
+    <a href="https://wa.me/5491123456789?text=Hola%20Kzador!%20Quiero%20conseguir%20figuras%20de%20acción%20🚀" 
+       class="whatsapp-float" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-whatsapp"></i> <span>¡Coordina aquí!</span>
+    </a>
 
-  <section id="servicios">
-    <h2 class="section-title">Servicios</h2>
-    <div class="services">
-      <div class="service-card">
-        <i class="fas fa-laptop-code"></i>
-        <h3>Web Modernas</h3>
-        <p>Landing pages, tiendas online y páginas corporativas con diseño responsive y velocidad optimizada.</p>
-      </div>
-      <div class="service-card">
-        <i class="fas fa-database"></i>
-        <h3>Sistemas Web</h3>
-        <p>Automatización de procesos, paneles de administración y soluciones personalizadas para tu negocio.</p>
-      </div>
-      <div class="service-card">
-        <i class="fas fa-image"></i>
-        <h3>Banners Creativos</h3>
-        <p>Diseño de banners publicitarios para campañas, redes sociales y sitios web que capturan la atención.</p>
-      </div>
+    <div class="container">
+        <nav class="navbar">
+            <div class="logo">KZADOR <span>| action figures</span></div>
+            <ul class="nav-links">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#coleccion">Colección</a></li>
+                <li><a href="#galeria">Galería</a></li>
+                <li><a href="#contacto" class="btn-wa-nav"><i class="fab fa-whatsapp"></i> Contacto WA</a></li>
+            </ul>
+        </nav>
+
+        <!-- HERO CARRUSEL con IMÁGENES REALES de juguetes (usamos imágenes de muestra de action figures desde placeholder images pero con temática) -->
+        <section id="inicio">
+            <div class="hero-slider" data-aos="fade-up">
+                <div class="swiper swiper-hero">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide" style="background-image: url('img1.png'); background-size: cover;">
+                            <div class="hero-slide-content">
+                                <h2>GUERRERO LEGENDARIO</h2>
+                                <p>Figuras de acción con detalles hiper realistas. Ediciones limitadas.</p>
+                                <button class="btn-wa-hero heroWaBtn"><i class="fab fa-whatsapp"></i> Asegura la tuya</button>
+                            </div>
+                        </div>
+                        <div class="swiper-slide" style="background-image: url('img2.png'); background-size: cover;">
+                            <div class="hero-slide-content">
+                                <h2>COLECCIÓN ÉLITE</h2>
+                                <p>Piezas únicas que todo fan debe tener. Envíos a todo el país.</p>
+                                <button class="btn-wa-hero heroWaBtn"><i class="fab fa-whatsapp"></i> Consulta stock</button>
+                            </div>
+                        </div>
+                        <div class="swiper-slide" style="background-image: url('img3.jpg'); background-size: cover;">
+                            <div class="hero-slide-content">
+                                <h2>PERSONALIZA TU PEDIDO</h2>
+                                <p>Todo se coordina por WhatsApp. Te asesoramos para encontrar la figura perfecta.</p>
+                                <button class="btn-wa-hero heroWaBtn"><i class="fab fa-whatsapp"></i> ¡Escribenos!</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CATÁLOGO PRINCIPAL: FIGURAS DE ACCIÓN CON IMÁGENES REALES (sin precios) -->
+        <section id="coleccion">
+            <div class="section-title" data-aos="fade-up"><span>⚡ FIGURAS DESTACADAS</span> · PODER INFINITO</div>
+            <div class="catalog-grid" id="figuresGrid"></div>
+        </section>
+
+        <!-- GALERÍA DE IMÁGENES ADICIONAL (CARRUSEL) -->
+        <section id="galeria">
+            <div class="section-title" data-aos="fade-up"><span>📸 GALERÍA ÉPICA</span> · vive la colección</div>
+            <div class="gallery-thumbs" data-aos="zoom-in">
+                <div class="swiper swiper-gallery">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide gallery-item">
+                            <img src="kazador1.jpg" alt="Figura de acción guerrero">
+                        </div>
+                        <div class="swiper-slide gallery-item">
+                            <img src="kazador2.jpg" alt="Figura coleccionable">
+                        </div>
+                        <div class="swiper-slide gallery-item">
+                            <img src="kazador3.jpg" alt="Juguete de acción">
+                        </div>
+                        <div class="swiper-slide gallery-item">
+                            <img src="kazador4.jpg" alt="Figura de edición especial">
+                        </div>
+                        <div class="swiper-slide gallery-item">
+                            <img src="kazador5.jpg" alt="Articulación extrema">
+                        </div>
+                    </div>
+                    <div class="swiper-pagination-gallery"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Banner promocional sin precios, solo WA -->
+        <div class="banner-wa" data-aos="flip-up">
+            <h3><i class="fab fa-whatsapp"></i> ¿Buscas una figura específica?</h3>
+            <p style="margin: 0.8rem auto; max-width: 500px;">Escríbenos por WhatsApp, te mostraremos el catálogo completo, ediciones especiales y te asesoramos en cada paso.</p>
+            <a href="https://wa.me/5491123456789?text=Hola%20Kzador!%20Quiero%20ver%20el%20catálogo%20de%20figuras%20de%20acción" target="_blank" class="btn-wa-banner"><i class="fab fa-whatsapp"></i> Conversar ahora</a>
+        </div>
+
+        <!-- Beneficios -->
+        <div class="features" data-aos="fade-up">
+            <div class="feature-item"><i class="fas fa-truck-fast"></i><h4>Envíos a todo el país</h4><p>Entregas seguras</p></div>
+            <div class="feature-item"><i class="fas fa-shield-alt"></i><h4>Colecciones únicas</h4><p>Ediciones limitadas</p></div>
+            <div class="feature-item"><i class="fas fa-headset"></i><h4>Atención personal</h4><p>Por WhatsApp directo</p></div>
+            <div class="feature-item"><i class="fas fa-gem"></i><h4>Calidad premium</h4><p>Detalles increíbles</p></div>
+        </div>
+
+        <!-- Redes Sociales y contacto -->
+        <section id="contacto">
+            <div class="socials-area" data-aos="zoom-in">
+                <h3 style="font-size: 1.9rem;">✨ <span style="color:#ff3b5c;">KZADOR</span> COMUNIDAD ✨</h3>
+                <p style="margin: 1rem auto;">Síguenos en redes para sorteos, previews y eventos exclusivos.</p>
+                <div class="social-icons">
+                    <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-tiktok"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
+                </div>
+                <div style="margin-top: 1.5rem;">
+                    <p><i class="fas fa-envelope"></i> hola@kzadorfigures.com</p>
+                    <p><i class="fab fa-whatsapp"></i> +54 11 6789-1234 (Solo WhatsApp)</p>
+                </div>
+            </div>
+        </section>
     </div>
-  </section>
 
-  <section id="portafolio">
-    <h2 class="section-title">Portafolio</h2>
-    <div class="portfolio-grid">
-      <div class="portfolio-card">
-        <h3>Sitio Corporativo</h3>
-        <p>Diseño moderno para empresa tecnológica con secciones interactivas y navegación fluida.</p>
-      </div>
-      <div class="portfolio-card">
-        <h3>Tienda Online</h3>
-        <p>Desarrollo de eCommerce completo con pasarela de pagos y catálogo dinámico.</p>
-      </div>
-      <div class="portfolio-card">
-        <h3>Sistema de Gestión</h3>
-        <p>Panel administrativo para controlar usuarios, inventarios y reportes en tiempo real.</p>
-      </div>
-    </div>
-  </section>
+    <footer>
+        <div class="container footer-content">
+            <div>© 2025 Kzador · Figuras de Acción · Potencia tu colección</div>
+            <div style="display: flex; gap: 1.5rem;">
+                <a href="#" style="color:#9ca3af; text-decoration: none;">Términos</a>
+                <a href="#" style="color:#9ca3af; text-decoration: none;">Privacidad</a>
+            </div>
+        </div>
+    </footer>
 
-  <section id="testimonios">
-    <h2 class="section-title">Testimonios</h2>
-    <div class="testimonial-carousel">
-      <div class="testimonial active">
-        <p>"Danfer superó mis expectativas. Mi página web luce profesional y moderna."</p>
-        <span>- Carla R., Emprendedora</span>
-      </div>
-      <div class="testimonial">
-        <p>"Gracias a Danfer, mi sistema web automatizó gran parte de mi negocio. ¡Recomendado!"</p>
-        <span>- Luis M., Dueño de negocio</span>
-      </div>
-      <div class="testimonial">
-        <p>"Los banners que diseñó hicieron que mis campañas resalten frente a la competencia."</p>
-        <span>- Andrea G., Community Manager</span>
-      </div>
-    </div>
-  </section>
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 700, once: true, offset: 80 });
 
-  <section id="contacto">
-    <h2 class="section-title">Contacto</h2>
-    <div class="contacto">
-      <p>¿Tienes un proyecto en mente? Conversemos y llevémoslo al siguiente nivel.</p>
-      <p class="info">📧 zamoracastror@gmail.com</p>
-      <p class="info">📱 +51 901 250 023</p>
-      <p class="info">📍 Lima, Perú</p>
-    </div>
-  </section>
+        // Hero Swiper con imágenes
+        const heroSwiper = new Swiper('.swiper-hero', {
+            loop: true,
+            autoplay: { delay: 4500, disableOnInteraction: false },
+            pagination: { el: '.swiper-pagination', clickable: true },
+            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+            effect: 'slide',
+            grabCursor: true
+        });
 
-  <footer>
-    &copy; 2025 Danfer Dev. Todos los derechos reservados.
-  </footer>
+        // Galería Swiper
+        const gallerySwiper = new Swiper('.swiper-gallery', {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            loop: true,
+            autoplay: { delay: 3200, disableOnInteraction: false },
+            pagination: { el: '.swiper-pagination-gallery', clickable: true },
+            breakpoints: { 640: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }
+        });
 
-  <script>
-    window.addEventListener('load', () => {
-      document.body.style.opacity = '1';
-    });
+        // Data de figuras con IMÁGENES REALES (Unsplash + imágenes de acción)
+        const figuresData = [
+            { id: 1, nombre: "DRAGON KNIGHT", descrip: "Figura articulada de 30cm, armadura intercambiable y alas desmontables. Incluye espada energética.", img: "kazador1.jpg", alt: "Guerrero legendario" },
+            { id: 2, nombre: "CYBER NINJA", descrip: "Diseño futurista, 28 puntos de articulación, katana LED y funda oculta. Edición limitada.", img: "kazador2.jpg", alt: "Ninja cibernético" },
+            { id: 3, nombre: "WOLFEN SENTINEL", descrip: "Lobo mecánico de batalla, mandíbula móvil, cola articulada y blindaje pesado.", img: "kazador3.jpg", alt: "Lobo de acero" },
+            { id: 4, nombre: "ATOMIC BREAKER", descrip: "Postapocalíptico, efecto radiación, máscara desmontable y accesorios de guerra.", img: "kazador4.jpg", alt: "Guerrero radioactivo" },
+            { id: 5, nombre: "PHANTOM STRIKE", descrip: "Espectro de la venganza, capa textil y lanza de energía. Edición premium coleccionista.", img: "kazador5.jpg", alt: "Espectro vengador" },
+            { id: 6, nombre: "THUNDER GUARD", descrip: "Guardián eléctrico, base con efectos de iluminación y martillo de tormenta.", img: "kazador6.jpg", alt: "Guardián del trueno" }
+        ];
 
-    const testimonios = document.querySelectorAll('.testimonial');
-    let idx = 0;
-    setInterval(() => {
-      testimonios[idx].classList.remove('active');
-      idx = (idx + 1) % testimonios.length;
-      testimonios[idx].classList.add('active');
-    }, 6000);
-  </script>
+        function renderCatalog() {
+            const grid = document.getElementById('figuresGrid');
+            if (!grid) return;
+            let html = '';
+            figuresData.forEach(fig => {
+                html += `
+                    <div class="figure-card" data-aos="fade-up" data-aos-delay="80">
+                        <img class="figure-img" src="${fig.img}" alt="${fig.alt}" loading="lazy">
+                        <div class="figure-info">
+                            <h3>${fig.nombre}</h3>
+                            <p>${fig.descrip}</p>
+                            <button class="btn-coordinar" data-name="${fig.nombre}">
+                                <i class="fab fa-whatsapp"></i> Coordinar por WhatsApp
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            grid.innerHTML = html;
+            document.querySelectorAll('.btn-coordinar').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const figureName = btn.getAttribute('data-name');
+                    const msg = `Hola%20Kzador!%20Me%20encantó%20la%20figura%20${encodeURIComponent(figureName)}.%20Quiero%20saber%20stock%20y%20coordenadas%20de%20compra.`;
+                    window.open(`https://wa.me/5491123456789?text=${msg}`, '_blank');
+                });
+            });
+        }
+
+        // Botones hero WA
+        document.querySelectorAll('.heroWaBtn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                window.open(`https://wa.me/5491123456789?text=Hola%20Kzador!%20Vi%20el%20carrusel%20y%20quiero%20adquirir%20figuras%20de%20acción%20🔥`, '_blank');
+            });
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const target = this.getAttribute('href');
+                if(target === "#" || target === "") return;
+                const elem = document.querySelector(target);
+                if(elem) {
+                    e.preventDefault();
+                    elem.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCatalog();
+        });
+    </script>
 </body>
 </html>
